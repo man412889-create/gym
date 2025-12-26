@@ -21,19 +21,17 @@ with c2:
     if st.checkbox("全身線條"): needs.append("全身線條")
     if st.checkbox("強化體能"): needs.append("強化體能")
 
-st.subheader("3. 您試過什麼方式？")
+st.subheader("3. 您試過什麼方式？(可複選)")
 methods = []
 m1, m2 = st.columns(2)
 with m1:
     if st.checkbox("少吃多運動"): methods.append("少吃多運動")
     if st.checkbox("減肥藥"): methods.append("減肥藥")
+    if st.checkbox("中藥調理"): methods.append("中藥調理")  # 新增
 with m2:
+    if st.checkbox("保健食品"): methods.append("保健食品")  # 新增
     if st.checkbox("健身房"): methods.append("健身房")
     if st.checkbox("醫美診所"): methods.append("醫美診所")
-with m3:
-if st.checkbox("中藥調理"): methods.append("中藥調理")
-    if st.checkbox("保健食品"): methods.append("保健食品")
-
 
 st.subheader("4. 方便諮詢的時間？")
 q4 = st.radio("方便時間", ["平日白天", "平日晚上", "假日"], horizontal=True, label_visibility="collapsed")
@@ -45,20 +43,26 @@ name = st.text_input("姓名")
 phone = st.text_input("手機/Line")
 
 # 4. 送出與複製功能
-# ... (前面問卷題目都一樣，只改最後一段) ...
-
 if st.button("🚀 送出並產生紀錄"):
     if name:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
         needs_str = ", ".join(needs) if needs else "無"
         methods_str = ", ".join(methods) if methods else "無"
         
-        copy_text = f"【新客戶】\n時間：{timestamp}\n姓名：{name}\n電話：{phone}\n需求：{needs_str}\n方便時間：{q4}"
+        # 整理成一段方便複製的文字
+        copy_text = f"""【新潛在客戶】
+時間：{timestamp}
+姓名：{name}
+電話：{phone}
+滿意度：{q1}
+需求：{needs_str}
+試過方式：{methods_str}
+方便時間：{q4}"""
         
-        st.success("✅ 已生成！長按下方文字即可全選複製：")
+        st.success("✅ 已生成！請長按下方框內的文字即可「全選複製」：")
         
-        # 換成這個，手機長按文字會更好複製
-        st.text_area("複製區（長按全選）", value=copy_text, height=150)
+        # 使用文字區域，手機版長按文字會自動出現全選選項
+        st.text_area("複製區", value=copy_text, height=200)
         
     else:
         st.error("請填寫姓名喔！")
