@@ -30,6 +30,10 @@ with m1:
 with m2:
     if st.checkbox("健身房"): methods.append("健身房")
     if st.checkbox("醫美診所"): methods.append("醫美診所")
+with m3:
+if st.checkbox("中藥調理"): methods.append("中藥調理")
+    if st.checkbox("保健食品"): methods.append("保健食品")
+
 
 st.subheader("4. 方便諮詢的時間？")
 q4 = st.radio("方便時間", ["平日白天", "平日晚上", "假日"], horizontal=True, label_visibility="collapsed")
